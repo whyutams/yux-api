@@ -9,7 +9,7 @@
     "build": "tsc",
     "dev": "tsc -w",
     "prepare": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx tsx example.js"
   },
   "files": [
     "dist"
