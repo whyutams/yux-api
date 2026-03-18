@@ -23,7 +23,10 @@ export class Lk21 {
 
         try {
             const html = await fetchHtml(this.BASE_URL);
-            if (!html) return [];
+            if (!html) {
+                main_data.error = true;
+                return main_data;
+            }
 
             const $ = cheerio.load(html);
 
@@ -96,7 +99,10 @@ export class Lk21 {
 
         try {
             const html = await fetchHtml(this.BASE_URL + endpoint);
-            if (!html) return [];
+            if (!html) {
+                main_data.error = true;
+                return main_data;
+            }
 
             const $ = cheerio.load(html);
 
