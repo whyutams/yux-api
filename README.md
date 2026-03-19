@@ -3,6 +3,14 @@
 Library TypeScript yang berfokus pada scraping data dari berbagai layanan secara cepat dan efisien. Dibangun menggunakan Axios dan Cheerio.
 
 ![Build Status](https://github.com/whyutams/yux-api/actions/workflows/publish.yml/badge.svg)
+
+## ⚡ Fitur
+
+| No  | Nama |                Deskripsi                |               Metode               |
+| :-: | :--: | :-------------------------------------: | :----------------------------------: |
+|  1  | LK21 | Pengambilan data dari layanan film Layar Kaca 21 | `Homepage` `Newest` `Search` `Genre` `Detail` |
+
+
 ## 📦 Instalasi
 
 [![NPM INSTALL](http://img.shields.io/badge/npm-install-blue.svg?style=flat&logo=npm)](https://docs.npmjs.com/getting-started/installing-npm-packages-locally) ![NODE JS](http://img.shields.io/badge/Node-JS-teal.svg?style=flat&logo=node.js)
@@ -36,12 +44,6 @@ import { lk21 } from "yux-api";
   console.log(genreAction.data[0]?.title);
 })();
 ```
-
-## ⚡ Fitur
-
-| No  | Nama |                Deskripsi                |               Metode               |
-| :-: | :--: | :-------------------------------------: | :----------------------------------: |
-|  1  | LK21 | Pengambilan data dari layanan film LK21 | `Homepage` `Newest` `Search` `Genre` `Detail` |
 
 ## 👋🏻 Terima Kasih
 
