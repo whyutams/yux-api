@@ -150,7 +150,7 @@ export class Lk21 {
      * Layar kaca 21 - Cari Film berdasarkan genre
      * @param {Genres} genre - Genre 
      */
-    public async SearchByGenre(genre: Genres): Promise<any> {
+    public async Genre(genre: Genres): Promise<any> {
         const endpoint = `/ajax/filter-recommendation`;
         let main_data = {
             base_url: this.BASE_URL,
