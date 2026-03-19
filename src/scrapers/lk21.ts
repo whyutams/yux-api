@@ -166,7 +166,7 @@ export class Lk21 {
 
             main_data.data = response.data.map((item: any) => {
                 const poster = item.poster ? thumbnail_url + item.poster : null;
-                let obj = { title: item.title, rating: item.rating ? String(item.rating) : "?", year: item.year ? String(item.year) : "", duration: item.runtime || (item.season ? `S.${item.season}` : ""), pict: { sd: poster, hd: poster }, url: `${this.BASE_URL}/${item.slug}`, base_url: this.BASE_URL };
+                let obj = { title: item.title, rating: item.rating ? String(item.rating) : "?", year: item.year ? String(item.year) : "?", duration: item.runtime == "" ? "?" : item.runtime, season: item.season != "" ? `S${item.season}` : "?", episode: item.episode == "" ? "1" : String(item.episode), pict: { sd: poster, hd: poster }, url: `${this.BASE_URL}/${item.slug}`, base_url: this.BASE_URL };
                 return obj;
             });
 
