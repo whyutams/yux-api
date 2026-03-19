@@ -26,21 +26,21 @@ $ npm install yux-api
 Contoh penggunaan kode untuk fitur LK21:
 
 ```js
-import { lk21 } from "yux-api";
+import { LK21 } from "yux-api";
 // OR
-// const { lk21 } = await import("yux-api");
+// const { LK21 } = await import("yux-api");
 
 (async () => {
   // Halaman Utama
-  const home = await lk21.Homepage();
+  const home = await LK21.Homepage();
   console.log(home.data.terbaru[0]?.title);
 
   // Pencarian
-  const search = await lk21.Search("hacksaw ridge");
+  const search = await LK21.Search("hacksaw ridge");
   console.log(search.data[0]?.title);
 
   // Pencarian berdasarkan Genre
-  const genreAction = await lk21.Genre("action");
+  const genreAction = await LK21.Genre("action");
   console.log(genreAction.data[0]?.title);
 })();
 ```
