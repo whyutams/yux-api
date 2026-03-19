@@ -1,6 +1,6 @@
 {
   "name": "yux-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Library TypeScript yang berfokus pada scraping data dari layanan film, anime, dan lainnya.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -26,7 +26,11 @@
     "api",
     "typescript",
     "cheerio",
-    "axios"
+    "axios",
+    "yux",
+    "yux-api",
+    "indonesia",
+    "library"
   ],
   "author": "whyutams",
   "license": "MIT",
