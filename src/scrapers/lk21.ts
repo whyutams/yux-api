@@ -192,6 +192,90 @@ export class Lk21 {
         }
     }
 
+    /**
+     * Layar kaca 21 - Informasi detail spesifik film
+     * @param {string} slug - URL film
+     */
+    public async Detail(slug: string): Promise<any> {
+        const endpoint = slug.startsWith('/') ? slug : `/${slug}`;
+        let main_data = {
+            base_url: this.BASE_URL,
+            url: this.BASE_URL + endpoint,
+            error: false,
+            data: {} as any
+        };
+
+        try {
+            const html = await fetchHtml(this.BASE_URL + endpoint);
+            if (!html) {
+                main_data.error = true;
+                return main_data;
+            }
+
+            const $ = cheerio.load(html);
+            const content = $(".movie-info");
+
+            let title, synopsis, age = "?", quality = "?", duration = "?", sutradara: any = [], artists: any = [], negara: any = [], releaseDate = "?", updatedAt = "?", downloadUrl, pict, rating = "?", votes, genres: any = [];
+
+            title = content.find('h1').first().text().trim();
+            content.find('.info-tag span').each((i, el) => {
+                let _ = $(el).text().trim();
+                let __ = _.toLowerCase();
+                if (__.endsWith('+')) age = _;
+                else if (__.endsWith('p')) quality = _;
+                else if (__.endsWith('m') && __[1] == "h") duration = _;
+                else if (__.includes(".")) rating = _;
+            });
+            downloadUrl = content.find('.movie-action a[target="_blank"]').first().attr('href');
+            synopsis = content.find('.meta-info .synopsis').text().trim();
+            pict = content.find('.meta-info .detail a').last().attr('href');
+            content.find('.meta-info .detail p').each((i, el) => {
+                let _ = $(el).text().trim();
+                let __ = _.toLowerCase();
+
+                if (__.startsWith('sutradara')) {
+                    $(el).find("a").each((_i, _el) => {
+                        let _: any = { name: $(_el).text().trim(), slug: $(_el).attr('href'), url: this.BASE_URL + $(_el).attr('href') };
+                        sutradara.push(_);
+                    });
+                }
+                if (__.startsWith('bintang film')) {
+                    $(el).find("a").each((_i, _el) => {
+                        let _: any = { name: $(_el).text().trim(), slug: $(_el).attr('href'), url: this.BASE_URL + $(_el).attr('href') };
+                        artists.push(_);
+                    });
+                }
+                if (__.startsWith('negara')) {
+                    $(el).find("a").each((_i, _el) => {
+                        let _: any = { name: $(_el).text().trim(), slug: $(_el).attr('href'), url: this.BASE_URL + $(_el).attr('href') };
+                        negara.push(_);
+                    });
+                }
+                if (__.startsWith('release')) {
+                    releaseDate = _.replace(/release\s*:/i, '').trim() || "?";
+                }
+                if (__.startsWith('updated')) {
+                    updatedAt = _.replace(/updated\s*:/i, '').trim() || "?";
+                }
+                if (__.startsWith('votes')) {
+                    votes = _.replace(/votes\s*:/i, '').trim() || "?";
+                }
+            });
+            content.find(".tag-list span.tag").each((i, el) => {
+                let _: any = { name: $(el).text().trim(), slug: $(el).find('a').attr('href'), url: this.BASE_URL + $(el).find('a').attr('href') };
+                genres.push(_);
+            });
+
+            main_data.data = { title, synopsis, genres, rating, age, quality, duration, votes, download_url: downloadUrl, pict: { sd: pict, hd: pict }, sutradara, artists, release_date: releaseDate, updated_at: updatedAt }
+
+            return main_data;
+        } catch (error) {
+            console.error(error);
+            main_data.error = !main_data.error;
+            return main_data;
+        }
+    }
+
     /* FUNCTIONS */
     private convertHtmlContent($: cheerio.CheerioAPI, el: any): any {
         let title = $(el).find("figcaption").find('h3').text().trim() || $(el).find("a").attr("title") || "";

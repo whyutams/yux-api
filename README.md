@@ -41,7 +41,7 @@ import { lk21 } from "yux-api";
 
 | No  | Nama |                Deskripsi                |               Metode               |
 | :-: | :--: | :-------------------------------------: | :----------------------------------: |
-|  1  | LK21 | Pengambilan data dari layanan film LK21 | `Homepage` `Newest` `Search` `Genre` |
+|  1  | LK21 | Pengambilan data dari layanan film LK21 | `Homepage` `Newest` `Search` `Genre` `Detail` |
 
 ## 👋🏻 Terima Kasih
 
