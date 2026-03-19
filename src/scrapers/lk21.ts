@@ -134,7 +134,7 @@ export class Lk21 {
 
             main_data.data = response.data.map((item: any) => {
                 const poster = item.poster ? thumbnail_url + item.poster : null;
-                let obj = { title: item.title, rating: item.rating ? String(item.rating) : "?", year: item.year ? String(item.year) : "?", duration: item.runtime == "" ? "?" : item.runtime, season: item.season != "" ? `S.${item.season}` : "?", episode: item.episode == "" ? "1" : String(item.episode), pict: { sd: poster, hd: poster }, url: `${this.BASE_URL}/${item.slug}`, base_url: this.BASE_URL };
+                let obj = { title: item.title, rating: item.rating ? String(item.rating) : "?", year: item.year ? String(item.year) : "?", duration: item.runtime == "" ? "?" : item.runtime, season: item.season != "" ? `S.${item.season}` : "?", episode: item.episode == "" ? "1" : String(item.episode), pict: { sd: poster, hd: poster }, slug: item.slug, url: `${this.BASE_URL}/${item.slug}`, base_url: this.BASE_URL };
                 return obj;
             });
 
@@ -197,13 +197,14 @@ export class Lk21 {
         let title = $(el).find("figcaption").find('h3').text().trim() || $(el).find("a").attr("title") || "";
         let genre = $(el).find("figcaption").find('.genre').text().trim();
         let linkHref = $(el).find("a").attr("href") || "";
+        let slug = linkHref;
         let rating = $(el).find("span.rating").text().trim() || '?';
         let year = $(el).find("span.year").text().trim();
         let duration = $(el).find("span.duration").text().trim();
         let episode = $(el).find("span.episode").find("strong").text().trim() || "1";
         let pict = $(el).find("img").attr("src") || $(el).find("img").attr("data-src") || null;
         if (linkHref && linkHref.startsWith("/")) linkHref = this.BASE_URL + linkHref;
-        let obj = { title, genre, rating, year, duration: duration.startsWith("S.") ? "?" : duration, season: !duration.startsWith("S.") ? "?" : duration, episode, pict: { sd: pict, hd: pict }, url: linkHref, base_url: this.BASE_URL };
+        let obj = { title, genre, rating, year, duration: duration.startsWith("S.") ? "?" : duration, season: !duration.startsWith("S.") ? "?" : duration, episode, pict: { sd: pict, hd: pict }, slug, url: linkHref, base_url: this.BASE_URL };
         return obj;
     }
 }
