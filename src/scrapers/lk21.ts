@@ -32,30 +32,14 @@ export class Lk21 {
 
             /* Latest */
             $(".widget[data-type='latest-movies'] ul.sliders[role='list'] li").each((i, el) => {
-                let title = $(el).find("figcaption").find('h3').text().trim();
-                let genre = $(el).find("figcaption").find('.genre').text().trim();
-                let linkHref = $(el).find("a").attr("href") || "";
-                let rating = $(el).find("span.rating").text().trim() || '?';
-                let year = $(el).find("span.year").text().trim();
-                let duration = $(el).find("span.duration").text().trim();
-                let pict = $(el).find("picture").find("source[type='image/webp']").attr("srcset") || null;
-                let pict_hd = $(el).find("picture").find("source[type='image/jpeg']").attr("srcset") || null;
-                let obj = { title, genre, rating, year, duration, pict: { sd: pict, hd: pict_hd }, url: this.BASE_URL + linkHref, base_url: this.BASE_URL };
-                if (title !== '') main_data.data.terbaru.push(obj);
+                let obj = this.convertHtmlContent($, el);
+                if (obj.title !== '') main_data.data.terbaru.push(obj);
             });
 
             /* Unggulan */
             $(".widget[data-type='top-series-today'] ul.sliders[role='list'] li").each((i, el) => {
-                let title = $(el).find("figcaption").find('h3').text().trim();
-                let genre = $(el).find("figcaption").find('.genre').text().trim();
-                let linkHref = $(el).find("a").attr("href") || "";
-                let rating = $(el).find("span.rating").text().trim() || '?';
-                let year = $(el).find("span.year").text().trim();
-                let duration = $(el).find("span.duration").text().trim();
-                let pict = $(el).find("picture").find("source[type='image/webp']").attr("srcset") || null;
-                let pict_hd = $(el).find("picture").find("source[type='image/jpeg']").attr("srcset") || null;
-                let obj = { title, genre, rating, year, duration, pict: { sd: pict, hd: pict_hd }, url: this.BASE_URL + linkHref, base_url: this.BASE_URL };
-                if (title !== '') main_data.data.unggulan.push(obj);
+                let obj = this.convertHtmlContent($, el);
+                if (obj.title !== '') main_data.data.unggulan.push(obj);
             });
 
             /* Rekomendasi */
@@ -64,16 +48,8 @@ export class Lk21 {
             })
                 .find("ul.sliders[role='list'] li")
                 .each((i, el) => {
-                    let title = $(el).find("figcaption").find('h3').text().trim();
-                    let genre = $(el).find("figcaption").find('.genre').text().trim();
-                    let linkHref = $(el).find("a").attr("href") || "";
-                    let rating = $(el).find("span.rating").text().trim() || '?';
-                    let year = $(el).find("span.year").text().trim();
-                    let duration = $(el).find("span.duration").text().trim();
-                    let pict = $(el).find("picture").find("source[type='image/webp']").attr("srcset") || null;
-                    let pict_hd = $(el).find("picture").find("source[type='image/jpeg']").attr("srcset") || null;
-                    let obj = { title, genre, rating, year, duration, pict: { sd: pict, hd: pict_hd }, url: this.BASE_URL + linkHref, base_url: this.BASE_URL };
-                    if (title !== '') main_data.data.rekomendasi.push(obj);
+                    let obj = this.convertHtmlContent($, el);
+                    if (obj.title !== '') main_data.data.rekomendasi.push(obj);
                 });
 
             return main_data;
@@ -107,16 +83,8 @@ export class Lk21 {
             const $ = cheerio.load(html);
 
             $(".widget .gallery-grid article").each((i, el) => {
-                let title = $(el).find("figcaption").find('h3').text().trim();
-                let genre = $(el).find("figcaption").find('.genre').text().trim();
-                let linkHref = $(el).find("a").attr("href") || "";
-                let rating = $(el).find("span.rating").text().trim() || '?';
-                let year = $(el).find("span.year").text().trim();
-                let duration = $(el).find("span.duration").text().trim();
-                let pict = $(el).find("picture").find("source[type='image/webp']").attr("srcset") || null;
-                let pict_hd = $(el).find("picture").find("source[type='image/jpeg']").attr("srcset") || null;
-                let obj = { title, genre, rating, year, duration, pict: { sd: pict, hd: pict_hd }, url: this.BASE_URL + linkHref, base_url: this.BASE_URL };
-                if (title !== '') main_data.data.push(obj);
+                let obj = this.convertHtmlContent($, el);
+                if (obj.title !== '') main_data.data.push(obj);
             });
 
             return main_data;
@@ -176,5 +144,66 @@ export class Lk21 {
             main_data.error = true;
             return main_data;
         }
+    }
+
+    /**
+     * Layar kaca 21 - Cari Film berdasarkan genre
+     * @param {string} genre - Genre 
+     */
+    public async SearchByGenre(genre: string): Promise<any> {
+        const endpoint = `/ajax/filter-recommendation`;
+        let main_data = {
+            base_url: this.BASE_URL,
+            url: this.BASE_URL + endpoint,
+            error: false,
+            data: [] as any[]
+        };
+
+        try {
+            let params = new URLSearchParams();
+            params.append("type", "");
+            params.append("genre1", genre);
+            params.append("genre2", "");
+            params.append("country", "");
+            params.append("years", "");
+            params.append("artist", "");
+
+            const apiUrl = this.BASE_URL + endpoint;
+            const html = await fetchHtml(apiUrl, this.BASE_URL, params);
+
+            if (!html || typeof html !== "string") {
+                main_data.error = true;
+                return main_data;
+            }
+
+            const $ = cheerio.load(html);
+
+            $("article").each((i, el) => {
+                let obj = this.convertHtmlContent($, el);
+                if (obj.title !== '') main_data.data.push(obj);
+            });
+
+            return main_data;
+
+        } catch (error: any) {
+            console.error(error);
+            main_data.error = true;
+            return main_data;
+        }
+    }
+
+    /* FUNCTIONS */
+    private convertHtmlContent($: cheerio.CheerioAPI, el: any): any {
+        let title = $(el).find("figcaption").find('h3').text().trim() || $(el).find("a").attr("title") || "";
+        let genre = $(el).find("figcaption").find('.genre').text().trim();
+        let linkHref = $(el).find("a").attr("href") || "";
+        let rating = $(el).find("span.rating").text().trim() || '?';
+        let year = $(el).find("span.year").text().trim();
+        let duration = $(el).find("span.duration").text().trim();
+        let episode = $(el).find("span.episode").find("strong").text().trim() || "1";
+        let pict = $(el).find("img").attr("src") || $(el).find("img").attr("data-src") || null;
+        if (linkHref && linkHref.startsWith("/")) linkHref = this.BASE_URL + linkHref;
+        let obj = { title, genre, rating, year, duration: duration.startsWith("S.") ? "?" : duration, season: !duration.startsWith("S.") ? "?" : duration, episode, pict: { sd: pict, hd: pict }, url: linkHref, base_url: this.BASE_URL };
+        return obj;
     }
 }
