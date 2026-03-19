@@ -2,11 +2,11 @@ import axios from "axios";
 import general from "../../data/general.json" with { type: "json" };
 
 /**
- * Fetch raw html
+ * Fetch raw html/json
  */
-export async function fetchHtml(url: string, sourceUrl?: string): Promise<string | null> {
+export async function fetchHtml(url: string, sourceUrl?: string, formData?: URLSearchParams): Promise<any | null> {
     try {
-        const response = await axios.get(url, {
+        let response, defObj = {
             headers: {
                 'User-Agent': general.user_agents[0] as string,
                 'Accept': 'application/json, text/javascript, */*; q=0.01',
@@ -19,7 +19,17 @@ export async function fetchHtml(url: string, sourceUrl?: string): Promise<string
                 'Sec-Fetch-Mode': 'cors',
                 'Sec-Fetch-Site': 'cross-site'
             }
-        });
+        };
+
+        if (formData) {
+            response = await axios.post(url, formData, {
+                headers: {
+                    ...defObj.headers,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+        } else response = await axios.get(url, { ...defObj, });
+
         return response.data;
     } catch (error) {
         return null;
