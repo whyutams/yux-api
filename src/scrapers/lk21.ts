@@ -141,7 +141,7 @@ export class Lk21 {
 
             main_data.data = response.data.map((item: any) => {
                 const poster = item.poster ? thumbnail_url + item.poster : null;
-                let obj = { title: item.title, genre: '?', rating: item.rating ? String(item.rating) : "?", year: item.year ? String(item.year) : "?", duration: item.runtime == "" ? "?" : item.runtime, season: item.season != "" ? `S.${item.season}` : "?", episode: item.episode == "" ? "1" : String(item.episode), pict: { sd: poster, hd: poster }, slug: String(item.slug).startsWith('/') ? item.slug : `/${item.slug}`, url: `${this.BASE_URL}/${item.slug}`, base_url: this.BASE_URL };
+                let obj = { title: item.title, genre: '?', rating: item.rating ? String(item.rating) : "?", year: item.year ? String(item.year) : "?", duration: item.runtime == "" ? "?" : item.runtime, season: item.season != "" ? `S.${item.season}` : "?", episode: item.episode == "" ? "1" : String(item.episode), pict: { sd: poster, hd: poster }, slug: String(item.slug).startsWith('/') ? item.slug : `/${item.slug}`, url: `${this.BASE_URL}/${item.slug}` };
                 return obj;
             });
 
@@ -277,7 +277,7 @@ export class Lk21 {
                 genres.push(_);
             });
 
-            main_data.data = { title, synopsis, genres, rating, age, quality, duration, votes, download_url: downloadUrl, pict: { sd: pict, hd: pict }, sutradara, artists, release_date: releaseDate, updated_at: updatedAt, year: '?', episode: '?', season: '?', url: main_data.url, slug, base_url: this.BASE_URL }
+            main_data.data = { title, synopsis, genres, rating, age, quality, duration, votes, download_url: downloadUrl, pict: { sd: pict, hd: pict }, sutradara, artists, release_date: releaseDate, updated_at: updatedAt, year: '?', episode: '?', season: '?', url: main_data.url, slug }
 
             return main_data;
         } catch (error) {
@@ -299,7 +299,7 @@ export class Lk21 {
         let episode = $(el).find("span.episode").find("strong").text().trim() || "1";
         let pict = $(el).find("img").attr("src") || $(el).find("img").attr("data-src") || null;
         if (linkHref && linkHref.startsWith("/")) linkHref = this.BASE_URL + linkHref;
-        let obj = { title, genre, rating, year, duration: duration.startsWith("S.") ? "?" : duration, season: !duration.startsWith("S.") ? "?" : duration, episode, pict: { sd: pict, hd: pict }, slug, url: linkHref, base_url: this.BASE_URL };
+        let obj = { title, genre, rating, year, duration: duration.startsWith("S.") ? "?" : duration, season: !duration.startsWith("S.") ? "?" : duration, episode, pict: { sd: pict, hd: pict }, slug, url: linkHref };
         return obj;
     }
 }
@@ -321,7 +321,6 @@ export type GeneralPromise = {
     },
     slug: string,
     url: string,
-    base_url: string,
 }
 
 export type DetailPromise = {
@@ -359,5 +358,4 @@ export type DetailPromise = {
     episode: string,
     slug: string,
     url: string,
-    base_url: string,
 }
