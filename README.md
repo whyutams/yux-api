@@ -6,9 +6,9 @@ Library TypeScript yang berfokus pada scraping data dari berbagai layanan secara
 
 ## ⚡ Fitur
 
-| No  | Nama |                Deskripsi                |               Metode               |
-| :-: | :--: | :-------------------------------------: | :----------------------------------: |
-|  1  | LK21 | Pengambilan data dari layanan film Layar Kaca 21 | `Homepage` `Newest` `Search` `Genre` `Detail` |
+| No  | Nama | Kategori |                Deskripsi                |               Metode               |
+| :-: | :--: | :-----: | :-------------------------------------: | :----------------------------------: |
+|  1  | LK21 | Film | Pengambilan data dari layanan film Layar Kaca 21 | `Homepage` `Newest` `Search` `Genre` `Detail` |
 
 
 ## 📦 Instalasi
