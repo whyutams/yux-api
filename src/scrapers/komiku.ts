@@ -68,6 +68,7 @@ export class Komiku {
      * @returns {Promise<GlobalPromise<PromiseSearch[]>>} Mengembalikan Promise yang berisi objek
      */
     public async Search(query: string): Promise<GlobalPromise<PromiseSearch[]>> {
+        if (!query || query && query.trim().length === 0) throw new Error('Masukkan parameter query!');
         const endpoint = `/?post_type=manga&s=${query.replaceAll(' ', '+')}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -126,6 +127,7 @@ export class Komiku {
      * @returns {Promise<GlobalPromise<PromiseDetail>>} Mengembalikan Promise yang berisi objek
      */
     public async Detail(slug: string): Promise<GlobalPromise<PromiseDetail>> {
+        if (!slug || slug && slug.trim().length === 0) throw new Error('Masukkan parameter slug!');
         const endpoint = slug.startsWith('/') ? slug : `/${slug}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -210,6 +212,7 @@ export class Komiku {
      * @returns {Promise<GlobalPromise<PromiseChapter>>} Mengembalikan Promise yang berisi objek
      */
     public async Chapter(slug: string): Promise<GlobalPromise<PromiseChapter>> {
+        if (!slug || slug && slug.trim().length === 0) throw new Error('Masukkan parameter slug!');
         const endpoint = slug.startsWith('/') ? slug : `/${slug}`;
         let main_data = {
             base_url: this.BASE_URL,
