@@ -5,6 +5,6 @@ export type GlobalFormat = {
     url: string,
     /** Error: true/false */
     error: boolean,
-    /** Data yang akan dikembalikan bisa berupa objek atau array */
+    /** @type {any | any[]} Data yang akan dikembalikan bisa berupa objek atau array */
     data: any | any[]
 }
