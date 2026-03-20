@@ -9,9 +9,9 @@ export class Lk21 {
     /**
      * Layar kaca 21 - Mengambil data konten untuk halaman utama
      * 
-     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalFormat<{terbaru: GeneralPromise[], unggulan: GeneralPromise[], rekomendasi: GeneralPromise[]}>>} Mengembalikan Promise yang berisi objek
      */
-    public async Homepage(): Promise<GlobalFormat> {
+    public async Homepage(): Promise<GlobalFormat<{ terbaru: GeneralPromise[], unggulan: GeneralPromise[], rekomendasi: GeneralPromise[] }>> {
         const endpoint = "";
         let main_data = {
             base_url: this.BASE_URL,
@@ -67,9 +67,9 @@ export class Lk21 {
      * Layar kaca 21 - Mengambil data konten untuk halaman film terbaru
      * 
      * @param {number} page - Nomor halaman (default: 1)
-     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalFormat<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
      */
-    public async Newest(page: number = 1): Promise<GlobalFormat> {
+    public async Newest(page: number = 1): Promise<GlobalFormat<GeneralPromise[]>> {
         const endpoint = `/latest${page === 1 ? "" : `/page/${page}`}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -105,9 +105,9 @@ export class Lk21 {
      * 
      * @param {string} query - Kata kunci pencarian
      * @param {number} page - Halaman pencarian (default: 1)
-     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalFormat<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
      */
-    public async Search(query: string, page: number = 1): Promise<GlobalFormat> {
+    public async Search(query: string, page: number = 1): Promise<GlobalFormat<GeneralPromise[]>> {
         const endpoint = `/search?s=${encodeURIComponent(query)}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -141,7 +141,7 @@ export class Lk21 {
 
             main_data.data = response.data.map((item: any) => {
                 const poster = item.poster ? thumbnail_url + item.poster : null;
-                let obj = { title: item.title, rating: item.rating ? String(item.rating) : "?", year: item.year ? String(item.year) : "?", duration: item.runtime == "" ? "?" : item.runtime, season: item.season != "" ? `S.${item.season}` : "?", episode: item.episode == "" ? "1" : String(item.episode), pict: { sd: poster, hd: poster }, slug: String(item.slug).startsWith('/') ? item.slug : `/${item.slug}`, url: `${this.BASE_URL}/${item.slug}`, base_url: this.BASE_URL };
+                let obj = { title: item.title, genre: '?', rating: item.rating ? String(item.rating) : "?", year: item.year ? String(item.year) : "?", duration: item.runtime == "" ? "?" : item.runtime, season: item.season != "" ? `S.${item.season}` : "?", episode: item.episode == "" ? "1" : String(item.episode), pict: { sd: poster, hd: poster }, slug: String(item.slug).startsWith('/') ? item.slug : `/${item.slug}`, url: `${this.BASE_URL}/${item.slug}`, base_url: this.BASE_URL };
                 return obj;
             });
 
@@ -157,9 +157,9 @@ export class Lk21 {
      * Layar kaca 21 - Mengambil daftar film berdasarkan genre
      * 
      * @param {Genres} genre - Genre 
-     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalFormat<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
      */
-    public async Genre(genre: Genres): Promise<GlobalFormat> {
+    public async Genre(genre: Genres): Promise<GlobalFormat<GeneralPromise[]>> {
         const endpoint = `/ajax/filter-recommendation`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -205,9 +205,9 @@ export class Lk21 {
      * Layar kaca 21 - Mengambil seluruh informasi film tertentu
      * 
      * @param {string} slug - URL film
-     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalFormat<DetailPromise>>} Mengembalikan Promise yang berisi objek
      */
-    public async Detail(slug: string): Promise<GlobalFormat> {
+    public async Detail(slug: string): Promise<GlobalFormat<DetailPromise>> {
         const endpoint = slug.startsWith('/') ? slug : `/${slug}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -277,7 +277,7 @@ export class Lk21 {
                 genres.push(_);
             });
 
-            main_data.data = { title, synopsis, genres, rating, age, quality, duration, votes, download_url: downloadUrl, pict: { sd: pict, hd: pict }, sutradara, artists, release_date: releaseDate, updated_at: updatedAt }
+            main_data.data = { title, synopsis, genres, rating, age, quality, duration, votes, download_url: downloadUrl, pict: { sd: pict, hd: pict }, sutradara, artists, release_date: releaseDate, updated_at: updatedAt, year: '?', episode: '?', season: '?', url: main_data.url, slug, base_url: this.BASE_URL }
 
             return main_data;
         } catch (error) {
@@ -306,3 +306,58 @@ export class Lk21 {
 
 /* Last updated on 19/03/2026 */
 export type Genres = "action" | "adventure" | "animation" | "biography" | "comedy" | "crime" | "documentary" | "drama" | "family" | "fantasy" | "film-noir" | "game-show" | "history" | "horror" | "musical" | "mystery" | "psychological" | "reality-tv" | "romance" | "sci-fi" | "short" | "sport" | "supernatural" | "tv-movie" | "talk" | "thriller" | "war" | "western" | "wrestling";
+
+export type GeneralPromise = {
+    title: string,
+    genre: string,
+    rating: string,
+    year: string,
+    duration: string,
+    season: string,
+    episode: string,
+    pict: {
+        sd: string,
+        hd: string
+    },
+    slug: string,
+    url: string,
+    base_url: string,
+}
+
+export type DetailPromise = {
+    title: string,
+    synopsis: string,
+    genres: {
+        name: string,
+        slug: string,
+        url: string
+    }[],
+    rating: string,
+    age: string,
+    quality: string,
+    duration: string,
+    year: string,
+    votes: string,
+    download_url: string,
+    sutradara: {
+        name: string,
+        slug: string,
+        url: string
+    }[],
+    artists: {
+        name: string,
+        slug: string,
+        url: string
+    }[],
+    pict: {
+        sd: string,
+        hd: string
+    },
+    release_date: string,
+    updated_at: string,
+    season: string,
+    episode: string,
+    slug: string,
+    url: string,
+    base_url: string,
+}
