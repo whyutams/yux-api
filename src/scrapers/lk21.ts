@@ -302,8 +302,10 @@ export class Lk21 {
         let obj = { title, genre, rating, year, duration: duration.startsWith("S.") ? "?" : duration, season: !duration.startsWith("S.") ? "?" : duration, episode, pict: { sd: pict, hd: pict }, slug, url: linkHref };
         return obj;
     }
+    /* FUNCTIONS END */
 }
 
+/* TYPES */
 /* Last updated on 19/03/2026 */
 export type Genres = "action" | "adventure" | "animation" | "biography" | "comedy" | "crime" | "documentary" | "drama" | "family" | "fantasy" | "film-noir" | "game-show" | "history" | "horror" | "musical" | "mystery" | "psychological" | "reality-tv" | "romance" | "sci-fi" | "short" | "sport" | "supernatural" | "tv-movie" | "talk" | "thriller" | "war" | "western" | "wrestling";
 
@@ -359,3 +361,4 @@ export type PromiseDetail = {
     slug: string,
     url: string,
 }
+/* TYPES END */
