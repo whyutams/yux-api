@@ -1,4 +1,5 @@
-import * as lk21Scraper from "./src/scrapers/lk21.js"; 
+import * as lk21Scraper from "./src/scrapers/lk21.js";
+import * as komikuScraper from "./src/scrapers/komiku.js";
 
 /**
  * Film - Layar Kaca 21
@@ -9,3 +10,12 @@ import * as lk21Scraper from "./src/scrapers/lk21.js";
  * @method Detail Mengambil seluruh informasi film tertentu
  */
 export const LK21 = new lk21Scraper.Lk21();
+
+/**
+ * Komik - Komiku
+ * @method Homepage Mengambil daftar update komik terbaru di halaman utama
+ * @method Search Melakukan pencarian komik
+ * @method Detail Mengambil informasi detail komik
+ * @method Chapter Mengambil daftar gambar dari chapter komik tertentu
+ */
+export const Komiku = new komikuScraper.Komiku();
