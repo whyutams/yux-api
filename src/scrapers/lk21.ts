@@ -108,6 +108,7 @@ export class Lk21 {
      * @returns {Promise<GlobalPromise<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
      */
     public async Search(query: string, page: number = 1): Promise<GlobalPromise<GeneralPromise[]>> {
+        if (!query || query && query.trim().length === 0) throw new Error('Masukkan parameter query!');
         const endpoint = `/search?s=${encodeURIComponent(query)}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -160,6 +161,7 @@ export class Lk21 {
      * @returns {Promise<GlobalPromise<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
      */
     public async Genre(genre: Genres): Promise<GlobalPromise<GeneralPromise[]>> {
+        if (!genre || genre && genre.trim().length === 0) throw new Error('Masukkan parameter genre!');
         const endpoint = `/ajax/filter-recommendation`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -208,6 +210,7 @@ export class Lk21 {
      * @returns {Promise<GlobalPromise<PromiseDetail>>} Mengembalikan Promise yang berisi objek
      */
     public async Detail(slug: string): Promise<GlobalPromise<PromiseDetail>> {
+        if (!slug || slug && slug.trim().length === 0) throw new Error('Masukkan parameter slug!');
         const endpoint = slug.startsWith('/') ? slug : `/${slug}`;
         let main_data = {
             base_url: this.BASE_URL,
