@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import general from "../../data/general.json" with { type: "json" };
 import { fetchHtml } from "../utils/fetcher.js";
+import { GlobalFormat } from "../utils/types.js";
 
 export class Lk21 {
     private BASE_URL = general.base_url.lk21;
@@ -8,7 +9,7 @@ export class Lk21 {
     /**
      * Layar kaca 21 - Halaman utama
      */
-    public async Homepage(): Promise<any> {
+    public async Homepage(): Promise<GlobalFormat> {
         const endpoint = "";
         let main_data = {
             base_url: this.BASE_URL,
@@ -64,7 +65,7 @@ export class Lk21 {
      * Layar kaca 21 - Film terbaru
      * @param {number} page - Nomor halaman (default: 1)
      */
-    public async Newest(page: number = 1): Promise<any> {
+    public async Newest(page: number = 1): Promise<GlobalFormat> {
         const endpoint = `/latest${page === 1 ? "" : `/page/${page}`}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -100,7 +101,7 @@ export class Lk21 {
      * @param {string} query - Kata kunci pencarian
      * @param {number} page - Halaman pencarian (default: 1)
      */
-    public async Search(query: string, page: number = 1): Promise<any> {
+    public async Search(query: string, page: number = 1): Promise<GlobalFormat> {
         const endpoint = `/search?s=${encodeURIComponent(query)}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -150,7 +151,7 @@ export class Lk21 {
      * Layar kaca 21 - Cari Film berdasarkan genre
      * @param {Genres} genre - Genre 
      */
-    public async Genre(genre: Genres): Promise<any> {
+    public async Genre(genre: Genres): Promise<GlobalFormat> {
         const endpoint = `/ajax/filter-recommendation`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -196,7 +197,7 @@ export class Lk21 {
      * Layar kaca 21 - Informasi detail spesifik film
      * @param {string} slug - URL film
      */
-    public async Detail(slug: string): Promise<any> {
+    public async Detail(slug: string): Promise<GlobalFormat> {
         const endpoint = slug.startsWith('/') ? slug : `/${slug}`;
         let main_data = {
             base_url: this.BASE_URL,
