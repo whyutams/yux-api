@@ -204,7 +204,7 @@ export class Lk21 {
     /**
      * Layar kaca 21 - Mengambil seluruh informasi film tertentu
      * 
-     * @param {string} slug - URL film
+     * @param {string} slug - Slug URL film
      * @returns {Promise<GlobalPromise<PromiseDetail>>} Mengembalikan Promise yang berisi objek
      */
     public async Detail(slug: string): Promise<GlobalPromise<PromiseDetail>> {
