@@ -3,7 +3,7 @@ export type GlobalFormat = {
     base_url: string,
     /** Base URL + Endpoint */
     url: string,
-    /** Error: true/false */
+    /** Status error: true/false */
     error: boolean,
     /** @type {any | any[]} Data yang akan dikembalikan bisa berupa objek atau array */
     data: any | any[]

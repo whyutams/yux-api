@@ -7,7 +7,9 @@ export class Lk21 {
     private BASE_URL = general.base_url.lk21;
 
     /**
-     * Layar kaca 21 - Halaman utama
+     * Layar kaca 21 - Mengambil data konten untuk halaman utama
+     * 
+     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
      */
     public async Homepage(): Promise<GlobalFormat> {
         const endpoint = "";
@@ -62,8 +64,10 @@ export class Lk21 {
     }
 
     /**
-     * Layar kaca 21 - Film terbaru
+     * Layar kaca 21 - Mengambil data konten untuk halaman film terbaru
+     * 
      * @param {number} page - Nomor halaman (default: 1)
+     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
      */
     public async Newest(page: number = 1): Promise<GlobalFormat> {
         const endpoint = `/latest${page === 1 ? "" : `/page/${page}`}`;
@@ -97,9 +101,11 @@ export class Lk21 {
     }
 
     /**
-     * Layar kaca 21 - Cari Film
+     * Layar kaca 21 - Melakukan pencarian film berdasarkan kata kunci
+     * 
      * @param {string} query - Kata kunci pencarian
      * @param {number} page - Halaman pencarian (default: 1)
+     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
      */
     public async Search(query: string, page: number = 1): Promise<GlobalFormat> {
         const endpoint = `/search?s=${encodeURIComponent(query)}`;
@@ -148,8 +154,10 @@ export class Lk21 {
     }
 
     /**
-     * Layar kaca 21 - Cari Film berdasarkan genre
+     * Layar kaca 21 - Mengambil daftar film berdasarkan genre
+     * 
      * @param {Genres} genre - Genre 
+     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
      */
     public async Genre(genre: Genres): Promise<GlobalFormat> {
         const endpoint = `/ajax/filter-recommendation`;
@@ -194,8 +202,10 @@ export class Lk21 {
     }
 
     /**
-     * Layar kaca 21 - Informasi detail spesifik film
+     * Layar kaca 21 - Mengambil seluruh informasi film tertentu
+     * 
      * @param {string} slug - URL film
+     * @returns {Promise<GlobalFormat>} Mengembalikan Promise yang berisi objek
      */
     public async Detail(slug: string): Promise<GlobalFormat> {
         const endpoint = slug.startsWith('/') ? slug : `/${slug}`;
@@ -294,5 +304,5 @@ export class Lk21 {
     }
 }
 
-/* Last update on 19/03/2026 */
+/* Last updated on 19/03/2026 */
 export type Genres = "action" | "adventure" | "animation" | "biography" | "comedy" | "crime" | "documentary" | "drama" | "family" | "fantasy" | "film-noir" | "game-show" | "history" | "horror" | "musical" | "mystery" | "psychological" | "reality-tv" | "romance" | "sci-fi" | "short" | "sport" | "supernatural" | "tv-movie" | "talk" | "thriller" | "war" | "western" | "wrestling";
