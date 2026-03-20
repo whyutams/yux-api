@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 import general from "../../data/general.json" with { type: "json" };
 import { fetchHtml } from "../utils/fetcher.js";
-import { GlobalFormat } from "../utils/types.js";
+import { GlobalPromise } from "../utils/types.js";
 
 export class Lk21 {
     private BASE_URL = general.base_url.lk21;
@@ -9,9 +9,9 @@ export class Lk21 {
     /**
      * Layar kaca 21 - Mengambil data konten untuk halaman utama
      * 
-     * @returns {Promise<GlobalFormat<{terbaru: GeneralPromise[], unggulan: GeneralPromise[], rekomendasi: GeneralPromise[]}>>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalPromise<{terbaru: GeneralPromise[], unggulan: GeneralPromise[], rekomendasi: GeneralPromise[]}>>} Mengembalikan Promise yang berisi objek
      */
-    public async Homepage(): Promise<GlobalFormat<{ terbaru: GeneralPromise[], unggulan: GeneralPromise[], rekomendasi: GeneralPromise[] }>> {
+    public async Homepage(): Promise<GlobalPromise<{ terbaru: GeneralPromise[], unggulan: GeneralPromise[], rekomendasi: GeneralPromise[] }>> {
         const endpoint = "";
         let main_data = {
             base_url: this.BASE_URL,
@@ -67,9 +67,9 @@ export class Lk21 {
      * Layar kaca 21 - Mengambil data konten untuk halaman film terbaru
      * 
      * @param {number} page - Nomor halaman (default: 1)
-     * @returns {Promise<GlobalFormat<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalPromise<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
      */
-    public async Newest(page: number = 1): Promise<GlobalFormat<GeneralPromise[]>> {
+    public async Newest(page: number = 1): Promise<GlobalPromise<GeneralPromise[]>> {
         const endpoint = `/latest${page === 1 ? "" : `/page/${page}`}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -105,9 +105,9 @@ export class Lk21 {
      * 
      * @param {string} query - Kata kunci pencarian
      * @param {number} page - Halaman pencarian (default: 1)
-     * @returns {Promise<GlobalFormat<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalPromise<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
      */
-    public async Search(query: string, page: number = 1): Promise<GlobalFormat<GeneralPromise[]>> {
+    public async Search(query: string, page: number = 1): Promise<GlobalPromise<GeneralPromise[]>> {
         const endpoint = `/search?s=${encodeURIComponent(query)}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -157,9 +157,9 @@ export class Lk21 {
      * Layar kaca 21 - Mengambil daftar film berdasarkan genre
      * 
      * @param {Genres} genre - Genre 
-     * @returns {Promise<GlobalFormat<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalPromise<GeneralPromise[]>>} Mengembalikan Promise yang berisi objek
      */
-    public async Genre(genre: Genres): Promise<GlobalFormat<GeneralPromise[]>> {
+    public async Genre(genre: Genres): Promise<GlobalPromise<GeneralPromise[]>> {
         const endpoint = `/ajax/filter-recommendation`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -205,9 +205,9 @@ export class Lk21 {
      * Layar kaca 21 - Mengambil seluruh informasi film tertentu
      * 
      * @param {string} slug - URL film
-     * @returns {Promise<GlobalFormat<DetailPromise>>} Mengembalikan Promise yang berisi objek
+     * @returns {Promise<GlobalPromise<PromiseDetail>>} Mengembalikan Promise yang berisi objek
      */
-    public async Detail(slug: string): Promise<GlobalFormat<DetailPromise>> {
+    public async Detail(slug: string): Promise<GlobalPromise<PromiseDetail>> {
         const endpoint = slug.startsWith('/') ? slug : `/${slug}`;
         let main_data = {
             base_url: this.BASE_URL,
@@ -323,7 +323,7 @@ export type GeneralPromise = {
     url: string,
 }
 
-export type DetailPromise = {
+export type PromiseDetail = {
     title: string,
     synopsis: string,
     genres: {

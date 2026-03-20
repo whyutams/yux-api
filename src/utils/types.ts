@@ -1,4 +1,4 @@
-export type GlobalFormat<T = any | any[]> = {
+export type GlobalPromise<T = any | any[]> = {
     /** Base URL */
     base_url: string,
     /** Base URL + Endpoint */
