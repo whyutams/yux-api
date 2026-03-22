@@ -1,7 +1,7 @@
 {
   "name": "yux-api",
-  "version": "1.1.1",
-  "description": "Library TypeScript yang berfokus pada scraping data dari berbagai layanan.",
+  "version": "1.2.0",
+  "description": "Library TypeScript yang berfokus pada penyediaan tools dan scraping data dari berbagai layanan di Indonesia.",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "type": "module",
