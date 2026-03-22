@@ -20,3 +20,13 @@ export const LK21 = new scraperLk21.Api();
  * @method Chapter Mengambil daftar gambar dari chapter komik tertentu
  */
 export const Komiku = new scraperKomiku.Api();
+
+/**
+ * Anime - Otakudesu
+ * @method Homepage Mengambil daftar update anime Complete & Ongoing terbaru di halaman utama 
+ * @method Ongoing Mengambil data konten untuk anime yang sedang tayang
+ * @method Complete Mengambil data konten untuk anime yang sudah selesai tayang
+ * @method Search Melakukan pencarian anime
+ * @method Genre Mengambil data konten untuk anime dengan genre tertentu
+ */
+export const Otakudesu = new scraperOtakudesu.Api();
