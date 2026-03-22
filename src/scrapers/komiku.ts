@@ -249,7 +249,7 @@ export class Api {
 }
 
 /* TYPES */
-export type GeneralPromise = {
+type GeneralPromise = {
     title: string,
     chapter: {
         name: string,
@@ -268,7 +268,7 @@ export type GeneralPromise = {
     url: string,
 }
 
-export type PromiseSearch = Omit<GeneralPromise, "chapter" | "color"> & {
+type PromiseSearch = Omit<GeneralPromise, "chapter" | "color"> & {
     chapter_awal: {
         name: string,
         slug: string,
@@ -281,7 +281,7 @@ export type PromiseSearch = Omit<GeneralPromise, "chapter" | "color"> & {
     };
 }
 
-export type PromiseDetail = PromiseSearch & {
+type PromiseDetail = PromiseSearch & {
     title_id: string,
     synopsis: string,
     summary: string,
@@ -301,5 +301,5 @@ export type PromiseDetail = PromiseSearch & {
     }[],
 }
 
-export type PromiseChapter = { title: string, slug: string, images: { url: string, alt: string, id: string }[] }
+type PromiseChapter = { title: string, slug: string, images: { url: string, alt: string, id: string }[] }
 /* TYPES END */

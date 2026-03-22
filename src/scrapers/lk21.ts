@@ -310,9 +310,9 @@ export class Api {
 
 /* TYPES */
 /* Last updated on 19/03/2026 */
-export type Genres = "action" | "adventure" | "animation" | "biography" | "comedy" | "crime" | "documentary" | "drama" | "family" | "fantasy" | "film-noir" | "game-show" | "history" | "horror" | "musical" | "mystery" | "psychological" | "reality-tv" | "romance" | "sci-fi" | "short" | "sport" | "supernatural" | "tv-movie" | "talk" | "thriller" | "war" | "western" | "wrestling";
+type Genres = "action" | "adventure" | "animation" | "biography" | "comedy" | "crime" | "documentary" | "drama" | "family" | "fantasy" | "film-noir" | "game-show" | "history" | "horror" | "musical" | "mystery" | "psychological" | "reality-tv" | "romance" | "sci-fi" | "short" | "sport" | "supernatural" | "tv-movie" | "talk" | "thriller" | "war" | "western" | "wrestling";
 
-export type GeneralPromise = {
+type GeneralPromise = {
     title: string,
     genre: string,
     rating: string,
@@ -328,7 +328,7 @@ export type GeneralPromise = {
     url: string,
 }
 
-export type PromiseDetail = {
+type PromiseDetail = {
     title: string,
     synopsis: string,
     genres: {
