@@ -1,3 +1,7 @@
+import * as scraperLk21 from "./src/scrapers/lk21.js";
+import * as scraperKomiku from "./src/scrapers/komiku.js";
+import * as scraperOtakudesu from "./src/scrapers/otakudesu.js";
+
 /**
  * Film - Layar Kaca 21
  * @method Homepage Mengambil data konten untuk halaman utama
@@ -6,7 +10,6 @@
  * @method Genre Mengambil daftar film berdasarkan genre
  * @method Detail Mengambil seluruh informasi film tertentu
  */
-import * as scraperLk21 from "./src/scrapers/lk21.js";
 export const LK21 = new scraperLk21.Api();
 
 /**
@@ -16,5 +19,4 @@ export const LK21 = new scraperLk21.Api();
  * @method Detail Mengambil informasi detail komik
  * @method Chapter Mengambil daftar gambar dari chapter komik tertentu
  */
-import * as scraperKomiku from "./src/scrapers/komiku.js";
 export const Komiku = new scraperKomiku.Api();
