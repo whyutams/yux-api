@@ -1,15 +1,16 @@
 # yux-api
 
-Library TypeScript yang berfokus pada scraping data dari berbagai layanan secara cepat dan efisien. Dibangun menggunakan Axios dan Cheerio.
+Library TypeScript yang berfokus pada penyediaan tools dan scraping data dari berbagai layanan di Indonesia.
 
 ![Build Status](https://github.com/whyutams/yux-api/actions/workflows/publish.yml/badge.svg)
 
 ## ⚡ Fitur
 
-| No  |  Nama  | Kategori |                      Deskripsi                       |                    Metode                     |
-| :-: | :----: | :------: | :--------------------------------------------------: | :-------------------------------------------: |
-|  1  |  LK21  |   Film   | Pengambilan data dari layanan film **Layar Kaca 21** | `Homepage` `Newest` `Search` `Genre` `Detail` |
-|  2  | Komiku |  Komik   |    Pengambilan data dari layanan komik **Komiku**    |    `Homepage` `Search` `Detail` `Chapter`     |
+| No  |   Nama    | Kategori |                      Deskripsi                       |                      Metode                      |
+| :-: | :-------: | :------: | :--------------------------------------------------: | :----------------------------------------------: |
+|  1  |   LK21    |   Film   | Pengambilan data dari layanan film **Layar Kaca 21** |  `Homepage` `Newest` `Search` `Genre` `Detail`   |
+|  2  |  Komiku   |  Komik   |    Pengambilan data dari layanan komik **Komiku**    |      `Homepage` `Search` `Detail` `Chapter`      |
+|  3  | Otakudesu |  Anime   |  Pengambilan data dari layanan anime **Otakudesu**   | `Homepage` `Ongoing` `Complete` `Search` `Genre` |
 
 ## 📦 Instalasi
 
@@ -64,6 +65,12 @@ import { LK21 } from "yux-api";
 })();
 ```
 
-## 👋🏻 Terima Kasih
+## 🚀 Saran dan Masalah
 
-Terima kasih sudah berkunjung!
+Punya saran fitur atau menemukan bug? Silakan sampaikan melalui halaman [_Issues_](https://github.com/whyutams/yux-api/issues) 🔥
+
+## 👋🏻 Penutup
+
+Jika library ini bermanfaat, berikan dukunganmu dengan memberikan **Bintang** pada [_repositori library_](https://github.com/whyutams/yux-api) ini.
+
+Terima kasih sudah berkunjung! 🔥
