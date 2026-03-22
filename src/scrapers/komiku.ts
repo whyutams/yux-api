@@ -3,7 +3,7 @@ import general from "../../data/general.json" with { type: "json" };
 import { fetchHtml } from "../utils/fetcher.js";
 import { GlobalPromise } from "../utils/types.js";
 
-export class Komiku {
+export class Api {
     private BASE_URL = general.base_url.komiku;
 
     /**
