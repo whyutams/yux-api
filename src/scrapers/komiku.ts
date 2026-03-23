@@ -171,7 +171,7 @@ export class Api {
                         url: this.BASE_URL + $(el).find('a').attr('href')
                     }
                 }).get(),
-                slug
+                slug, url: main_data.url
             }
 
             content.find('section#Informasi table.inftable tr').each((i, el) => {
