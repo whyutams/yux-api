@@ -286,13 +286,98 @@ export class Api {
         }
 
     }
+
+    /**
+     * Otakudesu - Mengambil seluruh informasi anime tertentu
+     * 
+     * @param {string} slug - Slug URL anime
+     * @returns {Promise<GlobalPromise<PromiseDetail>>} Mengembalikan Promise yang berisi objek
+     */
+    public async Detail(slug: string): Promise<GlobalPromise<PromiseDetail>> {
+        if (!slug || slug && slug.trim().length === 0) throw new Error('Masukkan parameter slug!');
+        const endpoint = slug.startsWith('/') ? slug : `/${slug}`;
+        let main_data = {
+            base_url: this.BASE_URL,
+            url: this.BASE_URL + endpoint,
+            error: false,
+            data: {} as any
+        };
+
+        try {
+            const html = await fetchHtml(main_data.url);
+            if (!html) {
+                main_data.error = true;
+                return main_data;
+            }
+
+            const $ = cheerio.load(html);
+
+            const content = $('.venser');
+            let t = null, j = null, r = null, m = null, p = null, s = null, te = null, d = null, tr = null, st = null, gs = [] as any[], eps = [] as any[], b = null,
+                sy = null, syel = content.find('.sinopc p');
+
+            if (syel.text().trim() != "") {
+                if (syel.text().trim()?.toLowerCase().includes('tonton juga kelanjutannya')) sy = syel.slice(0, -1).map((i, el) => { return $(el).text().trim(); }).get().join('\n\n'); else sy = syel.map((i, el) => { return $(el).text().trim(); }).get().join('\n\n');
+            }
+
+            content.find('.infozingle p').each((i, el) => {
+                let _ = $(el).find('b').text().trim().toLowerCase();
+                let __ = $(el).find('span')?.contents()?.filter((_x, __x) => __x.type === 'text').text()?.replace(': ', '').trim() || null
+
+                if (_.includes('judul') && __) t = __;
+                else if (_.includes('japanese') && __) j = __;
+                else if (_.includes('skor') && __) isNaN(Number(__[0])) ? m = __ : r = __;
+                else if (_.includes('produser') && __) p = __;
+                else if (_.includes('status') && __) s = __;
+                else if (_.includes('total episode') && __) te = __.toLowerCase() == "unknown" ? "?" : __;
+                else if (_.includes('durasi') && __) d = __;
+                else if (_.includes('tanggal rilis') && __) tr = __;
+                else if (_.includes('studio') && __) st = __;
+                else if (_.includes('genre')) $(el).find('a[rel="tag"]').each((_i, _el) => {
+                    gs.push({
+                        genre: $(_el).text().trim(),
+                        slug: $(_el).attr('href')?.replace(this.BASE_URL, ''),
+                        url: $(_el).attr('href'),
+                    });
+                })
+            });
+
+            content.find('.episodelist').eq(1).find('ul li').each((_i, _el) => {
+                eps.push({
+                    episode: $(_el).find('a').text().trim(),
+                    tanggal_rilis: $(_el).find('span.zeebr').text()?.replace(',', ', ').trim(),
+                    slug: $(_el).find('a').attr('href')?.replace(this.BASE_URL, ''),
+                    url: $(_el).find('a').attr('href'),
+                })
+            });
+
+            let bel = content.find('.episodelist').first();
+            if (bel.find('.monktit').text().toLowerCase().trim()?.includes('batch') && bel.find('ul li').length > 0) b = {
+                batch: bel.find('ul li').first().find('a').text().trim(),
+                tanggal_rilis: bel.find('ul li').first().find('span.zeebr').text()?.replace(',', ', ').trim(),
+                slug: bel.find('ul li').first().find('a').attr('href')?.replace(this.BASE_URL, ''),
+                url: bel.find('ul li').first().find('a').attr('href'),
+            };
+
+            main_data.data = {
+                title: t, japanese: j, synopsis: sy, rating: r, musim: m, produser: p, status: s, total_episode: te, duration: d, tanggal_rilis: tr, studio: st, genres: gs, episodes: eps, batch: b, pict: content.find('.fotoanime').first().find('img').attr('src') || null, slug, url: main_data.url
+            }
+
+            return main_data;
+        } catch (error) {
+            console.error(error);
+            main_data.error = !main_data.error
+            return main_data;
+        }
+
+    }
 }
 
 /* TYPES */
 type Genres = "action" | "adventure" | "comedy" | "demons" | "drama" | "ecchi" | "fantasy" | "game" | "harem" | "historical" | "horror" | "josei" | "magic" | "martial-arts" | "mecha" | "military" | "music" | "mystery" | "psychological" | "parody" | "police" | "romance" | "samurai" | "school" | "sci-fi" | "seinen" | "shoujo" | "shoujo-ai" | "shounen" | "slice-of-life" | "sports" | "space" | "super-power" | "supernatural" | "thriller" | "vampire";
 
 type GeneralPromise = {
-    title: string,
+    title?: string,
     episode: string,
     updated_at: string,
     jadwal_tayang: string,
@@ -331,5 +416,34 @@ type PromiseGenre = Omit<GeneralPromise, 'jadwal_tayang' | 'episode' | 'updated_
         slug: string,
         url: string
     }[],
+}
+
+type PromiseDetail = Omit<GeneralPromise, 'jadwal_tayang' | 'episode' | 'updated_at'> & {
+    japanese?: number,
+    total_episode?: number,
+    rating?: string,
+    produser?: string,
+    status?: string,
+    studio?: string,
+    duration?: string,
+    tanggal_rilis?: string,
+    synopsis?: string,
+    musim?: string,
+    genres: {
+        genre: string,
+        slug: string,
+        url: string
+    }[],
+    episodes: {
+        episode: string,
+        tanggal_rilis: string,
+        slug: string,
+        url: string
+    }[],
+    batch?: {
+        batch: string,
+        slug: string,
+        url: string
+    },
 }
 /* TYPES END */

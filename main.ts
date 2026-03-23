@@ -28,5 +28,6 @@ export const Komiku = new scraperKomiku.Api();
  * @method Complete Mengambil data konten untuk anime yang sudah selesai tayang
  * @method Search Melakukan pencarian anime
  * @method Genre Mengambil data konten untuk anime dengan genre tertentu
+ * @method Detail Mengambil seluruh informasi anime tertentu
  */
 export const Otakudesu = new scraperOtakudesu.Api();
