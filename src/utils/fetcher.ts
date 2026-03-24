@@ -6,10 +6,9 @@ import general from "../../data/general.json" with { type: "json" };
  */
 export async function fetchHtml(url: string, sourceUrl?: string, formData?: URLSearchParams): Promise<any | null> {
     try {
-        const ra = general.user_agents[Math.floor(Math.random() * general.user_agents.length)] as string;
         let response, defObj = {
             headers: {
-                'User-Agent': ra,
+                'User-Agent': general.user_agents[Math.floor(Math.random() * general.user_agents.length)] as string,
                 'Accept': 'application/json, text/javascript, */*; q=0.01',
                 'Accept-Language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
                 'Referer': sourceUrl ? sourceUrl + '/' : url + '/',
