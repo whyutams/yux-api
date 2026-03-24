@@ -71,6 +71,6 @@ Punya saran fitur atau menemukan bug? Silakan sampaikan melalui halaman [_Issues
 
 ## 👋🏻 Penutup
 
-Jika library ini bermanfaat, berikan dukunganmu dengan memberikan **Bintang** pada [_repositori library_](https://github.com/whyutams/yux-api) ini.
+Jika library ini bermanfaat, berikan dukunganmu dengan memberikan **Bintang** pada [_repository_](https://github.com/whyutams/yux-api) library ini.
 
 Terima kasih sudah berkunjung! 🔥
