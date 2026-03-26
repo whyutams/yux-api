@@ -6,11 +6,12 @@ Library TypeScript yang berfokus pada penyediaan tools dan scraping data dari be
 
 ## ⚡ Fitur
 
-| No  |   Nama    | Kategori |                      Deskripsi                       |                      Metode                      |
-| :-: | :-------: | :------: | :--------------------------------------------------: | :----------------------------------------------: |
-|  1  |   LK21    |   Film   | Pengambilan data dari layanan film **Layar Kaca 21** |  `Homepage` `Newest` `Search` `Genre` `Detail`   |
-|  2  |  Komiku   |  Komik   |    Pengambilan data dari layanan komik **Komiku**    |      `Homepage` `Search` `Detail` `Chapter`      |
-|  3  | Otakudesu |  Anime   |  Pengambilan data dari layanan anime **Otakudesu**   | `Homepage` `Ongoing` `Complete` `Search` `Genre` `Detail` |
+| No  |   Nama    | Kategori |                                   Deskripsi                                   |                          Metode                           |
+| :-: | :-------: | :------: | :---------------------------------------------------------------------------: | :-------------------------------------------------------: |
+|  1  |   LK21    |   Film   |             Pengambilan data dari layanan film **Layar Kaca 21**              |       `Homepage` `Newest` `Search` `Genre` `Detail`       |
+|  2  |  Komiku   |  Komik   |                Pengambilan data dari layanan komik **Komiku**                 |          `Homepage` `Search` `Detail` `Chapter`           |
+|  3  | Otakudesu |  Anime   |               Pengambilan data dari layanan anime **Otakudesu**               | `Homepage` `Ongoing` `Complete` `Search` `Genre` `Detail` |
+|  4  |   KBBI    | Pustaka  | Pengambilan data Kamus Besar Bahasa Indonesia dari layanan **Kemendikdasmen** |                             -                             |
 
 ## 📦 Instalasi
 
