@@ -1,6 +1,7 @@
 import * as scraperLk21 from "./src/scrapers/lk21.js";
 import * as scraperKomiku from "./src/scrapers/komiku.js";
 import * as scraperOtakudesu from "./src/scrapers/otakudesu.js";
+import * as scraperKBBI from "./src/scrapers/kbbi.js";
 
 /**
  * Film - Layar Kaca 21
@@ -31,3 +32,11 @@ export const Komiku = new scraperKomiku.Api();
  * @method Detail Mengambil seluruh informasi anime tertentu
  */
 export const Otakudesu = new scraperOtakudesu.Api();
+
+const insKBBI = new scraperKBBI.Api();
+/**
+ * Pustaka - Kamus Besar Bahasa Indonesia
+ * @param {string} kata - Kata pencarian
+ * @returns {Promise<GlobalPromise<import("./src/scrapers/kbbi.js").GeneralPromise>>} Mengembalikan Promise yang berisi objek
+ */
+export const KBBI = insKBBI.cari.bind(insKBBI);
